@@ -28,10 +28,10 @@ db.connect((err) => {
 
 //get all the logins details from the registeration table
 app.get("/login", (req, res) => {
-  const getlogin = "SELECT * FROM registration";
-  db.query(getlogin, (err, results) => {
+  const getLogin = "SELECT RollNo, password FROM registration";
+  db.query(getLogin, (err, results) => {
     if (err) {
-      return res.status(500).send(err);
+      return res.status(500).send({ error: "Database query error" });
     }
     res.json(results);
   });

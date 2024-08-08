@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../assets/SITlogo.png";
 
 const Batch = () => {
   const [Batch, setBatch] = useState("");
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [editingIndex, setEditingIndex] = useState(-1);
   const [formData, setFormData] = useState({
     Name: "",
@@ -29,6 +31,7 @@ const Batch = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const baseUrl = import.meta.env.VITE_API;
 
+  //fetch data by batch
   useEffect(() => {
     const fetchData = async () => {
       if (Batch) {
@@ -49,6 +52,7 @@ const Batch = () => {
     setFormData(data[index]);
   };
 
+  //delete the student in the table
   const handleDelete = async (id, name, rollNo, year) => {
     const confirmed = window.confirm(
       `Are you sure you want to delete the data for ${name} (Roll No: ${rollNo}, Year: ${year})?`
@@ -63,6 +67,7 @@ const Batch = () => {
     }
   };
 
+  //update the student details in the table
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -219,7 +224,10 @@ const Batch = () => {
         >
           {showAddForm ? "Cancel" : "Add New User"}
         </button>
-        <button className="bg-blue-700 text-white px-4 py-2 rounded mb-4 ml-3">
+        <button
+          className="bg-blue-700 text-white px-4 py-2 rounded mb-4 ml-3"
+          onClick={() => navigate(`/`)}
+        >
           Enter Marks
         </button>
 
